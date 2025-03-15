@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 function App() {
     const [length, setLength] = useState(8);
-    const [nummberAllowed, setNumberAllowed] = useState(false);
+    const [numberAllowed, setNumberAllowed] = useState(false);
     const [charAllowed, setCharAllowed] = useState(false);
 
     const [password, setPasword] = useState("Password");
@@ -14,14 +14,14 @@ function App() {
         let pass = "";
         let str = "ABCDEFGHIJLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-        if (nummberAllowed) str += "0123456789";
+        if (numberAllowed) str += "0123456789";
         if (charAllowed) str += "!#$&&*-_+=[]{}~`";
         for (let i = 0; i < length; i++) {
-            let char = Math.floor(Math.random() * str.length + 1);
+            let char = Math.floor(Math.random() * str.length);
             pass += str.charAt(char);
         }
         setPasword(pass);
-    }, [length, nummberAllowed, charAllowed, setPasword]);
+    }, [length, numberAllowed, charAllowed, setPasword]);
 
     const copyPasswordToClipboard = useCallback(() => {
         passwordRef.current?.select();
@@ -31,7 +31,7 @@ function App() {
 
     useEffect(() => {
         passWordGenerator();
-    }, [length, nummberAllowed, charAllowed, setPasword]);
+    }, [length, numberAllowed, charAllowed, setPasword]);
 
     return (
         <>
@@ -68,7 +68,7 @@ function App() {
                     <label>length: {length}</label>
                     <input
                         type="checkbox"
-                        defaultChecked={nummberAllowed}
+                        defaultChecked={numberAllowed}
                         id="numberInput"
                         onChange={() => {
                             setNumberAllowed((prev) => !prev);
